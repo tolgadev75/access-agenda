@@ -11,7 +11,7 @@
               <div class="flex">
                 <div class="shrink-0 flex items-center">
                   <Link :href="route('dashboard')">
-                    <h1 class="text-xl font-bold text-gray-900">Access Agenda</h1>
+                    <h1 class="text-xl font-bold text-gray-900">Tableau de bord</h1>
                   </Link>
                 </div>
               </div>
