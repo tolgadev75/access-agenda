@@ -1,0 +1,46 @@
+/* Améliorer la visibilité du focus */
+:focus {
+    outline: 3px solid #2563eb !important; /* Bleu visible */
+    outline-offset: 2px;
+  }
+
+  /* Améliorer le contraste pour le texte */
+  body {
+    color: #1f2937; /* Texte foncé pour meilleur contraste */
+  }
+
+  /* Styles pour les liens - s'assurer qu'ils sont facilement identifiables */
+  a {
+    text-decoration: underline;
+  }
+
+  /* Ajuster la taille du texte pour une meilleure lisibilité */
+  html {
+    font-size: 100%; /* Permet le zoom du navigateur */
+  }
+
+  /* Améliorer l'espacement pour une meilleure lisibilité */
+  p, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.75em;
+  }
+
+  /* Assurer que les boutons sont facilement identifiables */
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  /* Style du lien "skip to content" quand il est visible */
+  .sr-only.focus\:not-sr-only:focus {
+    background-color: #ffffff;
+    color: #1d4ed8;
+    padding: 0.75rem;
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    border: 2px solid #1d4ed8;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+  }
