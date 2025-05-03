@@ -12,6 +12,7 @@ class Activity extends Model
     protected $fillable = [
         'name',
         'description',
+        'link',
         'location',
         'date',
         'start_time',
@@ -24,8 +25,7 @@ class Activity extends Model
         'accessibility_details',
         'contact_email',
         'contact_phone',
-        'organizer',
-        'max_participants',
+        'user_id',
     ];
 
     protected $casts = [
@@ -35,4 +35,8 @@ class Activity extends Model
         'is_accessible_hearing' => 'boolean',
         'is_accessible_cognitive' => 'boolean',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
