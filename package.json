@@ -20,6 +20,8 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
-        "@vueuse/core": "^13.1.0"
+        "@tailwindcss/line-clamp": "^0.4.4",
+        "@vueuse/core": "^13.1.0",
+        "laravel-vue-i18n": "^2.8.0"
     }
 }
