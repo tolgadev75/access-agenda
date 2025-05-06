@@ -1,19 +1,14 @@
 <template>
     <div class="flex flex-col min-h-screen bg-gray-100">
-      <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-white focus:text-blue-800 focus:z-50">
-        Aller au contenu principal
-      </a>
 
       <header class="bg-white shadow" role="banner">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <nav aria-label="Navigation principale" role="navigation">
             <div class="flex justify-between items-center">
-              <div class="flex">
-                <div class="shrink-0 flex items-center">
-                  <Link :href="route('dashboard')">
-                    <h1 class="text-xl font-bold text-gray-900">Tableau de bord</h1>
-                  </Link>
-                </div>
+              <div class="flex shrink-0 items-center">
+                <Link :href="route('dashboard')">
+                  <h1 class="text-xl font-bold text-gray-900">Tableau de bord</h1>
+                </Link>
               </div>
 
               <div class="hidden space-x-8 sm:flex">
@@ -43,49 +38,73 @@
                   S'inscrire
                 </Link>
 
-                <div v-if="$page.props.auth.user" class="relative">
+                <div
+                  v-if="$page.props.auth.user"
+                  ref="dropdownRef"
+                  @focusin="isDropdownOpen = true"
+                  @focusout="onFocusOut"
+                  class="relative"
+                >
                   <button
                     ref="dropdownToggleRef"
                     @click="isDropdownOpen = !isDropdownOpen"
-                    @keydown.escape="isDropdownOpen = false"
-                    class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
-                    :aria-expanded="isDropdownOpen"
+                    @keydown.enter.prevent="isDropdownOpen = !isDropdownOpen"
+                    @keydown.space.prevent="isDropdownOpen = !isDropdownOpen"
+                    @keydown.escape.prevent="isDropdownOpen = false"
                     aria-haspopup="true"
+                    :aria-expanded="isDropdownOpen.toString()"
+                    class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out"
                   >
                     <span>{{ $page.props.auth.user.name }}</span>
-                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    <svg
+                      class="ml-2 -mr-0.5 h-4 w-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      />
                     </svg>
                   </button>
 
-                  <div
-                    v-if="isDropdownOpen"
+                  <ul
+                    v-show="isDropdownOpen"
                     class="absolute right-0 mt-2 w-48 py-1 bg-white rounded-md shadow-lg"
-                    @click.outside="isDropdownOpen = false"
                     role="menu"
                     aria-orientation="vertical"
-                    :aria-labelledby="'user-menu-button'"
+                    :aria-labelledby="$refs.dropdownToggleRef?.id"
                   >
-                    <Link :href="route('dashboard')"
-                      class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
-                      role="menuitem"
-                    >
-                      Tableau de bord
-                    </Link>
-                    <Link :href="route('profile.edit')"
-                      class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
-                      role="menuitem"
-                    >
-                      Profil
-                    </Link>
-                    <button
-                      @click="logout"
-                      class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
-                      role="menuitem"
-                    >
-                      Se déconnecter
-                    </button>
-                  </div>
+                    <li>
+                      <Link
+                        :href="route('dashboard')"
+                        class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                        role="menuitem"
+                      >
+                        Tableau de bord
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        :href="route('profile.edit')"
+                        class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                        role="menuitem"
+                      >
+                        Profil
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        @click="logout"
+                        class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                        role="menuitem"
+                      >
+                        Se déconnecter
+                      </button>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -97,7 +116,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 bg-white border-b border-gray-200">
-              <slot></slot>
+              <slot />
             </div>
           </div>
         </div>
