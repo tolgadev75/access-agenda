@@ -7,55 +7,75 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# Access-Agenda
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Access-Agenda est une plateforme permettant de découvrir et de partager des activités sportives accessibles aux personnes en situation de handicap.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Fonctionnalités
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Accessibilité : Conçue selon les normes d'accessibilité web, utilisable au clavier et compatible avec les technologies d'assistance
 
-## Learning Laravel
+- CRUD : Parcourez, créez, modifiez et supprimez des activités sportives
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Filtres d'accessibilité : Visualisez rapidement les activités adaptées aux différents types de handicap (mobilité, vision, auditif, cognitif)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- Notifications visuelles de succès et d’erreur pour l'ajout, modification et suppression d'activités
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Interface responsive adaptée aux mobiles et tablettes
 
-## Laravel Sponsors
+## Technologies utilisées
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Backend : Laravel 12
 
-### Premium Partners
+- Frontend : Vue.js 3 avec Composition API et Inertia.js
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+- Styles : Tailwind CSS
 
-## Contributing
+- Base de données : MySQL
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Installation
 
-## Code of Conduct
+1. Clonez ce dépôt : 
+```bash
+git clone https://github.com/votre-compte/access-agenda.git
+cd access-agenda
+``` 
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+2. Installez les dépendances
+```bash
+composer install
+npm install
+``` 
 
-## Security Vulnerabilities
+3. Configurez l'environnement
+```bash
+cp .env.example .env
+php artisan key:generate
+``` 
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. Configurez votre base de données dans le fichier `.env`
 
-## License
+5. Lancez les migrations et les seeders
+```bash
+php artisan migrate
+php artisan db:seed
+``` 
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6. Compilez les assets frontend
+```bash
+npm run dev
+``` 
+
+7. Lancez le serveur
+```bash
+php artisan serve
+``` 
+
+## Structure du projet
+
+- `app/Http/Controllers/ActivityController.php` : Contrôleur pour la gestion des activités
+- `resources/js/Pages/` : Composants Vue pour les différentes pages
+- `resources/js/Components/` : Composants réutilisables (badges d'accessibilité, pagination, etc.)
+- `resources/js/Layouts/` : Layout principal accessible
+
+
