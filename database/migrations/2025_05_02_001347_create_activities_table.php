@@ -8,9 +8,6 @@ return new class extends Migration
 {
     public function up()
     {
-        // supprimer la table existante et la recréer afin deviter les erreurs lors de la migration
-        Schema::dropIfExists('activities');
-
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
