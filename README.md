@@ -69,6 +69,13 @@ npm run dev
 ```bash
 php artisan serve
 ``` 
+## Tests
+Ce projet utilise PHPUnit pour les tests unitaires.
+
+Pour exécuter les tests :
+```bash
+php artisan test
+``` 
 
 ## Structure du projet
 
