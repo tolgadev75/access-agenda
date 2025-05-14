@@ -17,6 +17,16 @@ export default defineConfig({
                 },
             },
         }),
-        i18n(), 
+        i18n(),
     ],
+    server: {
+        host: '0.0.0.0',
+        port: 5173,
+        strictPort: true,
+        hmr: {
+            host: 'localhost',
+            port: 5174,
+            clientPort: 5174,
+        },
+    },
 });

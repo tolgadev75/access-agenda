@@ -291,7 +291,7 @@
     if (activity) {
       // Mode édition
       editingActivity.value = activity;
-      Object.keys(form).forEach(key => {
+      Object.keys(form).forEach(key => { // je parcour les champs du form name, description etc
         if (key === 'date' && activity[key]) {
           const dateObj = new Date(activity[key]);
           form[key] = dateObj.toISOString().split('T')[0];
