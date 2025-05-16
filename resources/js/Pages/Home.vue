@@ -348,81 +348,28 @@
   </template>
 
   <script setup>
-  import AccessibleLayout from '@/Layouts/AccessibleLayout.vue';
-  import { Head, Link } from '@inertiajs/vue3';
-  import { useActivity } from '@/composables/useActivity';
-  import ActivityDateTime from '@/Components/ActivityDateTime.vue';
-  import Pagination from '@/Components/Pagination.vue';
-  import { reactive, computed } from 'vue';
+    import AccessibleLayout from '@/Layouts/AccessibleLayout.vue';
+    import { Head, Link } from '@inertiajs/vue3';
+    import { useActivity } from '@/composables/useActivity';
+    import ActivityDateTime from '@/Components/ActivityDateTime.vue';
+    import Pagination from '@/Components/Pagination.vue';
+    import { ref, computed } from 'vue';
+    import { useFilters } from '@/composables/useFilters';
 
-  const props = defineProps({
+    const props = defineProps({
     activities: Object
-  });
-
-  const { truncate } = useActivity();
-
-  const months = [
-    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
-  ];
-
-  // initialiser filtre
-  const filters = reactive({
-    months: [],
-    accessibility: {
-      mobility: false,
-      vision: false,
-      hearing: false,
-      cognitive: false
-    }
-  });
-
-  const toggleMonthFilter = (monthIndex) => {
-    const index = filters.months.indexOf(monthIndex);
-    if (index === -1) {
-      // Si le mois n'est pas déjà sélectionné, l'ajouter
-      filters.months.push(monthIndex);
-    } else {
-      // Sinon retirer
-      filters.months.splice(index, 1);
-    }
-  };
-
-  const resetFilters = () => {
-    filters.months = [];
-    filters.accessibility.mobility = false;
-    filters.accessibility.vision = false;
-    filters.accessibility.hearing = false;
-    filters.accessibility.cognitive = false;
-  };
-
-  // extraire format "YYYY-MM-DD"
-  const getMonthFromDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.getMonth();
-  };
-
-  const filteredActivities = computed(() => {
-    if (filters.months.length === 0 &&
-        !filters.accessibility.mobility &&
-        !filters.accessibility.vision &&
-        !filters.accessibility.hearing &&
-        !filters.accessibility.cognitive) {
-      return props.activities.data;
-    }
-
-    return props.activities.data.filter(activity => {
-      const activityMonth = getMonthFromDate(activity.date);
-      const passesMonthFilter = filters.months.length === 0 || filters.months.includes(activityMonth);
-
-      const passesAccessibilityFilter = (
-        (!filters.accessibility.mobility || activity.is_accessible_mobility) &&
-        (!filters.accessibility.vision || activity.is_accessible_vision) &&
-        (!filters.accessibility.hearing || activity.is_accessible_hearing) &&
-        (!filters.accessibility.cognitive || activity.is_accessible_cognitive)
-      );
-
-      return passesMonthFilter && passesAccessibilityFilter;
     });
-  });
-  </script>
+
+    const { truncate } = useActivity();
+
+    const activitiesRef = computed(() => props.activities.data);
+    const {
+    showFilters,
+    filters,
+    months,
+    toggleMonthFilter,
+    resetFilters,
+    filteredActivities
+    } = useFilters(activitiesRef);
+
+</script>

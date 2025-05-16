@@ -24,13 +24,135 @@
             </button>
           </div>
 
+    <div class="mb-6">
+    <button
+        @click="showFilters = !showFilters"
+        class="flex items-center text-sm text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+        </svg>
+        {{ showFilters ? 'Masquer les filtres' : 'Filtrer mes activités' }}
+    </button>
+
+    <div v-if="showFilters" class="mt-3 bg-white p-4 border border-gray-200 rounded-lg space-y-4">
+        <div>
+        <h4 class="font-medium text-gray-700 mb-2">Statut</h4>
+        <div class="flex space-x-2">
+            <button
+            @click="filters.status = 'all'"
+            :class="[
+                'px-3 py-1 rounded-lg text-sm font-medium transition-colors',
+                filters.status === 'all'
+                ? 'bg-indigo-100 text-indigo-800'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            ]"
+            >
+            Toutes
+            </button>
+            <button
+            @click="filters.status = 'upcoming'"
+            :class="[
+                'px-3 py-1 rounded-lg text-sm font-medium transition-colors',
+                filters.status === 'upcoming'
+                ? 'bg-indigo-100 text-indigo-800'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            ]"
+            >
+            À venir
+            </button>
+            <button
+            @click="filters.status = 'past'"
+            :class="[
+                'px-3 py-1 rounded-lg text-sm font-medium transition-colors',
+                filters.status === 'past'
+                ? 'bg-indigo-100 text-indigo-800'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            ]"
+            >
+            Passées
+            </button>
+        </div>
+        </div>
+
+        <div>
+        <h4 class="font-medium text-gray-700 mb-2">Par mois</h4>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+            <button
+            v-for="(month, index) in months"
+            :key="index"
+            @click="toggleMonthFilter(index)"
+            :class="[
+                'py-1 px-2 rounded-lg text-sm font-medium transition-colors',
+                filters.months.includes(index)
+                ? 'bg-indigo-100 text-indigo-800 hover:bg-indigo-200'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            ]"
+            >
+            {{ month }}
+            </button>
+        </div>
+        </div>
+
+        <div>
+        <h4 class="font-medium text-gray-700 mb-2">Par type de sport</h4>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+            <button
+            v-for="type in sportTypes"
+            :key="type"
+            @click="toggleSportTypeFilter(type)"
+            :class="[
+                'py-1 px-2 rounded-lg text-sm font-medium transition-colors truncate',
+                filters.sportTypes.includes(type)
+                ? 'bg-indigo-100 text-indigo-800 hover:bg-indigo-200'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            ]"
+            >
+            {{ type }}
+            </button>
+        </div>
+        </div>
+
+        <div>
+        <h4 class="font-medium text-gray-700 mb-2">Par accessibilité</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="flex items-center space-x-3">
+            <input
+                type="checkbox"
+                id="mobility-filter-dashboard"
+                v-model="filters.accessibility.mobility"
+                class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
+            />
+            <label for="mobility-filter-dashboard" class="text-gray-700 cursor-pointer text-sm">
+                <span class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                Mobilité réduite
+                </span>
+            </label>
+            </div>
+        </div>
+        </div>
+
+        <div class="flex justify-end pt-2">
+        <button
+            @click="resetFilters"
+            class="text-sm text-gray-700 hover:text-gray-900 focus:outline-none focus:underline"
+        >
+            Réinitialiser les filtres
+        </button>
+        </div>
+    </div>
+    </div>
+
           <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div v-if="activities.data.length === 0" class="p-6 bg-white border-b border-gray-200">
               <p class="text-gray-600">Vous n'avez pas encore créé d'activités. Utilisez le bouton "Ajouter une activité" pour commencer.</p>
             </div>
 
             <div v-else class="divide-y divide-gray-200">
-              <div v-for="activity in activities.data" :key="activity.id" class="p-6 bg-white border-b border-gray-200">
+                <div v-for="activity in filteredActivities" :key="activity.id" class="p-6 bg-white border-b border-gray-200">
                 <div class="flex flex-col sm:flex-row justify-between">
                   <div>
                     <h4 class="text-lg font-medium text-gray-900">{{ activity.name }}</h4>
@@ -246,8 +368,8 @@
     </AccessibleLayout>
   </template>
 
-  <script setup>
-  import { ref, reactive } from 'vue';
+ <script setup>
+  import { ref, reactive, computed } from 'vue';
   import { Head, router } from '@inertiajs/vue3';
   import AccessibleLayout from '@/Layouts/AccessibleLayout.vue';
   import { useActivity } from '@/composables/useActivity';
@@ -255,20 +377,37 @@
   import ActivityDateTime from '@/Components/ActivityDateTime.vue';
   import Pagination from '@/Components/Pagination.vue';
   import { SPORT_TYPES } from '@/constants/sportTypes';
+  import { useFilters } from '@/composables/useFilters';
 
   const props = defineProps({
     activities: Object
   });
 
+  // Modaux et états d'édition
   const showActivityModal = ref(false);
   const showDeleteModal = ref(false);
   const editingActivity = ref(null);
   const activityToDelete = ref(null);
 
+  // Utilitaires
   const { truncate, truncateUrl } = useActivity();
 
+  // Liste des types de sport pour le formulaire
   const sportTypes = SPORT_TYPES;
 
+  // Utilisation du composable de filtrage
+  const activitiesRef = computed(() => props.activities.data);
+  const {
+    showFilters,
+    filters,
+    months,
+    toggleMonthFilter,
+    toggleSportTypeFilter,
+    resetFilters,
+    filteredActivities
+  } = useFilters(activitiesRef);
+
+  // Formulaire pour l'ajout/édition d'activités
   const form = reactive({
     name: '',
     description: '',
@@ -291,7 +430,7 @@
     if (activity) {
       // Mode édition
       editingActivity.value = activity;
-      Object.keys(form).forEach(key => { // je parcour les champs du form name, description etc
+      Object.keys(form).forEach(key => {
         if (key === 'date' && activity[key]) {
           const dateObj = new Date(activity[key]);
           form[key] = dateObj.toISOString().split('T')[0];
@@ -356,4 +495,4 @@
       }
     });
   };
-  </script>
+</script>
