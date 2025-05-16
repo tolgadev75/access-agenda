@@ -117,8 +117,9 @@
                     v-model="filters.accessibility.mobility"
                     class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
                     aria-describedby="mobility-label"
+                    tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility"
                   />
-                  <label id="mobility-label" for="mobility-filter" class="text-gray-700 cursor-pointer">
+                  <label id="mobility-label" for="mobility-filter" class="text-gray-700 cursor-pointer" tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility">
                     <span class="flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -135,8 +136,9 @@
                     v-model="filters.accessibility.vision"
                     class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
                     aria-describedby="vision-label"
+                    tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility"
                   />
-                  <label id="vision-label" for="vision-filter" class="text-gray-700 cursor-pointer">
+                  <label id="vision-label" for="vision-filter" class="text-gray-700 cursor-pointer" tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility">
                     <span class="flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -154,8 +156,9 @@
                     v-model="filters.accessibility.hearing"
                     class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
                     aria-describedby="hearing-label"
+                    tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility"
                   />
-                  <label id="hearing-label" for="hearing-filter" class="text-gray-700 cursor-pointer">
+                  <label id="hearing-label" for="hearing-filter" class="text-gray-700 cursor-pointer" tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility">
                     <span class="flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
@@ -172,8 +175,9 @@
                     v-model="filters.accessibility.cognitive"
                     class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
                     aria-describedby="cognitive-label"
+                    tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility"
                   />
-                  <label id="cognitive-label" for="cognitive-filter" class="text-gray-700 cursor-pointer">
+                  <label id="cognitive-label" for="cognitive-filter" class="text-gray-700 cursor-pointer" tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility">
                     <span class="flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
