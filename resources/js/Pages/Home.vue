@@ -79,6 +79,128 @@
           </div>
         </section>
 
+        <section aria-labelledby="filters-heading" class="bg-white p-6 rounded-lg shadow-sm">
+          <h3 id="filters-heading" class="text-xl font-semibold mb-4 text-gray-800 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+            Filtrer les activités
+          </h3>
+
+          <div class="space-y-6">
+            <div>
+              <h4 class="font-medium text-gray-700 mb-2">Par mois</h4>
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+                <button
+                  v-for="(month, index) in months"
+                  :key="index"
+                  @click="toggleMonthFilter(index)"
+                  :class="[
+                    'py-2 px-3 rounded-lg text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1',
+                    filters.months.includes(index)
+                      ? 'bg-indigo-100 text-indigo-800 hover:bg-indigo-200'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  ]"
+                >
+                  {{ month }}
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="font-medium text-gray-700 mb-2">Par accessibilité</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="flex items-center space-x-3">
+                  <input
+                    type="checkbox"
+                    id="mobility-filter"
+                    v-model="filters.accessibility.mobility"
+                    class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
+                    aria-describedby="mobility-label"
+                  />
+                  <label id="mobility-label" for="mobility-filter" class="text-gray-700 cursor-pointer">
+                    <span class="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      Mobilité réduite
+                    </span>
+                  </label>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                  <input
+                    type="checkbox"
+                    id="vision-filter"
+                    v-model="filters.accessibility.vision"
+                    class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
+                    aria-describedby="vision-label"
+                  />
+                  <label id="vision-label" for="vision-filter" class="text-gray-700 cursor-pointer">
+                    <span class="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                      Déficience visuelle
+                    </span>
+                  </label>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                  <input
+                    type="checkbox"
+                    id="hearing-filter"
+                    v-model="filters.accessibility.hearing"
+                    class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
+                    aria-describedby="hearing-label"
+                  />
+                  <label id="hearing-label" for="hearing-filter" class="text-gray-700 cursor-pointer">
+                    <span class="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                      </svg>
+                      Déficience auditive
+                    </span>
+                  </label>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                  <input
+                    type="checkbox"
+                    id="cognitive-filter"
+                    v-model="filters.accessibility.cognitive"
+                    class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
+                    aria-describedby="cognitive-label"
+                  />
+                  <label id="cognitive-label" for="cognitive-filter" class="text-gray-700 cursor-pointer">
+                    <span class="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                      </svg>
+                      Déficience cognitive
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center pt-2">
+              <button
+                type="button"
+                @click="resetFilters"
+                class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+              >
+                Réinitialiser les filtres
+              </button>
+
+              <div class="text-sm text-gray-500">
+                {{ filteredActivities.length }} activité{{ filteredActivities.length !== 1 ? 's' : '' }} trouvée{{ filteredActivities.length !== 1 ? 's' : '' }}
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section id="featured-activities" aria-labelledby="featured-activities-heading" class="pt-8">
           <div class="flex justify-between items-center mb-6">
             <h3 id="featured-activities-heading" class="text-2xl font-semibold text-gray-800 flex items-center">
@@ -89,10 +211,10 @@
             </h3>
           </div>
 
-          <div v-if="activities.data.length > 0">
+          <div v-if="filteredActivities.length > 0">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div
-                v-for="activity in activities.data"
+                v-for="activity in filteredActivities"
                 :key="activity.id"
                 class="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-md transition-all transform hover:-translate-y-1 focus-within:ring-2 focus-within:ring-indigo-400 focus-within:ring-offset-2"
                 tabindex="0"
@@ -124,6 +246,41 @@
                         {{ category.name }}
                       </span>
                     </div>
+
+                    <div class="flex flex-wrap gap-2 mt-2">
+                      <span v-if="activity.is_accessible_mobility"
+                        class="w-8 h-8 flex items-center justify-center bg-indigo-100 text-indigo-600 rounded-full"
+                        title="Accessible aux personnes à mobilité réduite">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                      </span>
+
+                      <span v-if="activity.is_accessible_vision"
+                        class="w-8 h-8 flex items-center justify-center bg-indigo-100 text-indigo-600 rounded-full"
+                        title="Accessible aux personnes avec déficience visuelle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                      </span>
+
+                      <span v-if="activity.is_accessible_hearing"
+                        class="w-8 h-8 flex items-center justify-center bg-indigo-100 text-indigo-600 rounded-full"
+                        title="Accessible aux personnes avec déficience auditive">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                        </svg>
+                      </span>
+
+                      <span v-if="activity.is_accessible_cognitive"
+                        class="w-8 h-8 flex items-center justify-center bg-indigo-100 text-indigo-600 rounded-full"
+                        title="Accessible aux personnes avec déficience cognitive">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                      </span>
+                    </div>
                   </div>
 
                   <div class="mt-4 text-right">
@@ -142,7 +299,7 @@
               </div>
             </div>
 
-            <div class="mt-8">
+            <div class="mt-8" v-if="activities.last_page > 1">
               <Pagination
                 :current-page="activities.current_page"
                 :last-page="activities.last_page"
@@ -156,10 +313,10 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <p class="text-gray-600 text-lg">
-              Aucune activité n'est disponible pour le moment.
+              Aucune activité ne correspond à vos critères de filtrage.
             </p>
             <p class="text-gray-400 mt-2">
-              Revenez bientôt ou créez votre propre activité !
+              Essayez de modifier vos filtres ou revenez plus tard !
             </p>
           </div>
         </section>
@@ -192,10 +349,76 @@
   import { useActivity } from '@/composables/useActivity';
   import ActivityDateTime from '@/Components/ActivityDateTime.vue';
   import Pagination from '@/Components/Pagination.vue';
+  import { reactive, computed } from 'vue';
 
   const props = defineProps({
     activities: Object
   });
 
   const { truncate } = useActivity();
+
+  const months = [
+    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+  ];
+
+  // initialiser filtre
+  const filters = reactive({
+    months: [],
+    accessibility: {
+      mobility: false,
+      vision: false,
+      hearing: false,
+      cognitive: false
+    }
+  });
+
+  const toggleMonthFilter = (monthIndex) => {
+    const index = filters.months.indexOf(monthIndex);
+    if (index === -1) {
+      // Si le mois n'est pas déjà sélectionné, l'ajouter
+      filters.months.push(monthIndex);
+    } else {
+      // Sinon retirer
+      filters.months.splice(index, 1);
+    }
+  };
+
+  const resetFilters = () => {
+    filters.months = [];
+    filters.accessibility.mobility = false;
+    filters.accessibility.vision = false;
+    filters.accessibility.hearing = false;
+    filters.accessibility.cognitive = false;
+  };
+
+  // extraire format "YYYY-MM-DD"
+  const getMonthFromDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.getMonth();
+  };
+
+  const filteredActivities = computed(() => {
+    if (filters.months.length === 0 &&
+        !filters.accessibility.mobility &&
+        !filters.accessibility.vision &&
+        !filters.accessibility.hearing &&
+        !filters.accessibility.cognitive) {
+      return props.activities.data;
+    }
+
+    return props.activities.data.filter(activity => {
+      const activityMonth = getMonthFromDate(activity.date);
+      const passesMonthFilter = filters.months.length === 0 || filters.months.includes(activityMonth);
+
+      const passesAccessibilityFilter = (
+        (!filters.accessibility.mobility || activity.is_accessible_mobility) &&
+        (!filters.accessibility.vision || activity.is_accessible_vision) &&
+        (!filters.accessibility.hearing || activity.is_accessible_hearing) &&
+        (!filters.accessibility.cognitive || activity.is_accessible_cognitive)
+      );
+
+      return passesMonthFilter && passesAccessibilityFilter;
+    });
+  });
   </script>
