@@ -79,131 +79,13 @@
           </div>
         </section>
 
-        <section aria-labelledby="filters-heading" class="bg-white p-6 rounded-lg shadow-sm">
-          <h3 id="filters-heading" class="text-xl font-semibold mb-4 text-gray-800 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-            </svg>
-            Filtrer les activités
-          </h3>
-
-          <div class="space-y-6">
-            <div>
-              <h4 class="font-medium text-gray-700 mb-2">Par mois</h4>
-              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
-                <button
-                  v-for="(month, index) in months"
-                  :key="index"
-                  @click="toggleMonthFilter(index)"
-                  :class="[
-                    'py-2 px-3 rounded-lg text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1',
-                    filters.months.includes(index)
-                      ? 'bg-indigo-100 text-indigo-800 hover:bg-indigo-200'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  ]"
-                >
-                  {{ month }}
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <h4 class="font-medium text-gray-700 mb-2">Par accessibilité</h4>
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="flex items-center space-x-3">
-                  <input
-                    type="checkbox"
-                    id="mobility-filter"
-                    v-model="filters.accessibility.mobility"
-                    class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
-                    aria-describedby="mobility-label"
-                    tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility"
-                  />
-                  <label id="mobility-label" for="mobility-filter" class="text-gray-700 cursor-pointer" tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility">
-                    <span class="flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                      Mobilité réduite
-                    </span>
-                  </label>
-                </div>
-
-                <div class="flex items-center space-x-3">
-                  <input
-                    type="checkbox"
-                    id="vision-filter"
-                    v-model="filters.accessibility.vision"
-                    class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
-                    aria-describedby="vision-label"
-                    tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility"
-                  />
-                  <label id="vision-label" for="vision-filter" class="text-gray-700 cursor-pointer" tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility">
-                    <span class="flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                      </svg>
-                      Déficience visuelle
-                    </span>
-                  </label>
-                </div>
-
-                <div class="flex items-center space-x-3">
-                  <input
-                    type="checkbox"
-                    id="hearing-filter"
-                    v-model="filters.accessibility.hearing"
-                    class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
-                    aria-describedby="hearing-label"
-                    tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility"
-                  />
-                  <label id="hearing-label" for="hearing-filter" class="text-gray-700 cursor-pointer" tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility">
-                    <span class="flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                      </svg>
-                      Déficience auditive
-                    </span>
-                  </label>
-                </div>
-
-                <div class="flex items-center space-x-3">
-                  <input
-                    type="checkbox"
-                    id="cognitive-filter"
-                    v-model="filters.accessibility.cognitive"
-                    class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
-                    aria-describedby="cognitive-label"
-                    tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility"
-                  />
-                  <label id="cognitive-label" for="cognitive-filter" class="text-gray-700 cursor-pointer" tabindex="0" @keydown.enter="filters.accessibility.mobility = !filters.accessibility.mobility">
-                    <span class="flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                      </svg>
-                      Déficience cognitive
-                    </span>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="flex justify-between items-center pt-2">
-              <button
-                type="button"
-                @click="resetFilters"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-              >
-                Réinitialiser les filtres
-              </button>
-
-              <div class="text-sm text-gray-500">
-                {{ filteredActivities.length }} activité{{ filteredActivities.length !== 1 ? 's' : '' }} trouvée{{ filteredActivities.length !== 1 ? 's' : '' }}
-              </div>
-            </div>
-          </div>
-        </section>
+        <ActivityFilters
+          :filters="filters"
+          :months="months"
+          :filteredCount="filteredActivities.length"
+          @toggleMonthFilter="toggleMonthFilter"
+          @resetFilters="resetFilters"
+        />
 
         <section id="featured-activities" aria-labelledby="featured-activities-heading" class="pt-8">
           <div class="flex justify-between items-center mb-6">
@@ -215,114 +97,34 @@
             </h3>
           </div>
 
-          <div v-if="filteredActivities.length > 0">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div
-                v-for="activity in filteredActivities"
-                :key="activity.id"
-                class="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-md transition-all transform hover:-translate-y-1 focus-within:ring-2 focus-within:ring-indigo-400 focus-within:ring-offset-2"
-                tabindex="0"
+          <ActivityList
+            :activities="filteredActivities"
+            emptyMessage="Aucune activité ne correspond à vos critères de filtrage. Essayez de modifier vos filtres ou revenez plus tard !"
+          >
+            <template #actions="{ activity }">
+              <Link
+                :href="route('activities.show', activity.id)"
+                class="inline-flex items-center px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-medium hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                aria-label="Voir les détails de l'activité"
               >
-                <div class="h-2 bg-indigo-600"></div>
+                Voir les détails
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </Link>
+            </template>
 
-                <div class="p-6">
-                  <h4 class="font-bold text-lg mb-3 text-gray-800">{{ activity.name }}</h4>
-
-                  <p class="text-gray-600 mb-4 line-clamp-3">{{ truncate(activity.description, 150) }}</p>
-
-                  <div class="space-y-3 mb-4">
-                    <ActivityDateTime :activity="activity" compact />
-
-                    <div class="flex items-center text-sm text-gray-700">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                      <span>{{ activity.location }}</span>
-                    </div>
-
-                    <div v-if="activity.categories && activity.categories.length" class="flex flex-wrap gap-2">
-                      <span
-                        v-for="category in activity.categories"
-                        :key="category.id"
-                        class="px-2 py-1 text-xs font-medium bg-indigo-50 text-indigo-700 rounded-full"
-                      >
-                        {{ category.name }}
-                      </span>
-                    </div>
-
-                    <div class="flex flex-wrap gap-2 mt-2">
-                      <span v-if="activity.is_accessible_mobility"
-                        class="w-8 h-8 flex items-center justify-center bg-indigo-100 text-indigo-600 rounded-full"
-                        title="Accessible aux personnes à mobilité réduite">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                      </span>
-
-                      <span v-if="activity.is_accessible_vision"
-                        class="w-8 h-8 flex items-center justify-center bg-indigo-100 text-indigo-600 rounded-full"
-                        title="Accessible aux personnes avec déficience visuelle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                      </span>
-
-                      <span v-if="activity.is_accessible_hearing"
-                        class="w-8 h-8 flex items-center justify-center bg-indigo-100 text-indigo-600 rounded-full"
-                        title="Accessible aux personnes avec déficience auditive">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                        </svg>
-                      </span>
-
-                      <span v-if="activity.is_accessible_cognitive"
-                        class="w-8 h-8 flex items-center justify-center bg-indigo-100 text-indigo-600 rounded-full"
-                        title="Accessible aux personnes avec déficience cognitive">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-
-                  <div class="mt-4 text-right">
-                    <Link
-                      :href="route('activities.show', activity.id)"
-                      class="inline-flex items-center px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-medium hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-                      aria-label="Voir les détails de l'activité"
-                    >
-                      Voir les détails
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </Link>
-                  </div>
-                </div>
+            <template #pagination>
+              <div class="mt-8" v-if="activities.last_page > 1">
+                <Pagination
+                  :current-page="activities.current_page"
+                  :last-page="activities.last_page"
+                  :prev-page-url="activities.prev_page_url"
+                  :next-page-url="activities.next_page_url"
+                />
               </div>
-            </div>
-
-            <div class="mt-8" v-if="activities.last_page > 1">
-              <Pagination
-                :current-page="activities.current_page"
-                :last-page="activities.last_page"
-                :prev-page-url="activities.prev_page_url"
-                :next-page-url="activities.next_page_url"
-              />
-            </div>
-          </div>
-          <div v-else class="bg-white p-8 text-center rounded-lg shadow-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <p class="text-gray-600 text-lg">
-              Aucune activité ne correspond à vos critères de filtrage.
-            </p>
-            <p class="text-gray-400 mt-2">
-              Essayez de modifier vos filtres ou revenez plus tard !
-            </p>
-          </div>
+            </template>
+          </ActivityList>
         </section>
 
         <section class="bg-gradient-to-r from-purple-600 to-indigo-500 p-8 rounded-lg text-white text-center">
@@ -348,28 +150,28 @@
   </template>
 
   <script setup>
-    import AccessibleLayout from '@/Layouts/AccessibleLayout.vue';
-    import { Head, Link } from '@inertiajs/vue3';
-    import { useActivity } from '@/composables/useActivity';
-    import ActivityDateTime from '@/Components/ActivityDateTime.vue';
-    import Pagination from '@/Components/Pagination.vue';
-    import { ref, computed } from 'vue';
-    import { useFilters } from '@/composables/useFilters';
+  import AccessibleLayout from '@/Layouts/AccessibleLayout.vue';
+  import { Head, Link } from '@inertiajs/vue3';
+  import { useActivity } from '@/composables/useActivity';
+  import ActivityDateTime from '@/Components/ActivityDateTime.vue';
+  import Pagination from '@/Components/Pagination.vue';
+  import ActivityFilters from '@/Components/Activities/ActivityFilters.vue';
+  import ActivityList from '@/Components/Activities/ActivityList.vue';
+  import { computed } from 'vue';
+  import { useFilters } from '@/composables/useFilters';
 
-    const props = defineProps({
+  const props = defineProps({
     activities: Object
-    });
+  });
 
-    const { truncate } = useActivity();
+  const { truncate } = useActivity();
 
-    const activitiesRef = computed(() => props.activities.data);
-    const {
-    showFilters,
+  const activitiesRef = computed(() => props.activities.data);
+  const {
     filters,
     months,
     toggleMonthFilter,
     resetFilters,
     filteredActivities
-    } = useFilters(activitiesRef);
-
-</script>
+  } = useFilters(activitiesRef);
+  </script>
