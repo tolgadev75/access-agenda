@@ -17,7 +17,8 @@ export function useFilters(activities) {
       vision: false,
       hearing: false,
       cognitive: false
-    }
+    },
+    search: ''
   });
 
   const toggleMonthFilter = (monthIndex) => {
@@ -46,6 +47,7 @@ export function useFilters(activities) {
     filters.accessibility.vision = false;
     filters.accessibility.hearing = false;
     filters.accessibility.cognitive = false;
+    filters.search = '';
   };
 
   const getMonthFromDate = (dateString) => {
