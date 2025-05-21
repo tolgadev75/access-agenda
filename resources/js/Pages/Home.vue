@@ -84,7 +84,9 @@
           :months="months"
           :filteredCount="filteredActivities.length"
           @toggleMonthFilter="toggleMonthFilter"
+          @toggleSportTypeFilter="toggleSportTypeFilter"
           @resetFilters="resetFilters"
+          @updateSearch="filters.search = $event"
         />
 
         <section id="featured-activities" aria-labelledby="featured-activities-heading" class="pt-8">
@@ -171,6 +173,7 @@
     filters,
     months,
     toggleMonthFilter,
+    toggleSportTypeFilter,
     resetFilters,
     filteredActivities
   } = useFilters(activitiesRef);

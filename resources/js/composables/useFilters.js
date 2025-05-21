@@ -56,17 +56,25 @@ export function useFilters(activities) {
   };
 
   const filteredActivities = computed(() => {
+    // Si aucun filtre actif +  pas de recherche -> retourner toute les activités
     if (filters.months.length === 0 &&
         !filters.accessibility.mobility &&
         !filters.accessibility.vision &&
         !filters.accessibility.hearing &&
         !filters.accessibility.cognitive &&
         (!filters.sportTypes || filters.sportTypes.length === 0) &&
-        filters.status === 'all') {
+        filters.status === 'all' &&
+        !filters.search) {
       return activities.value;
     }
 
     return activities.value.filter(activity => {
+      if (filters.search &&
+          activity.name &&
+          !activity.name.toLowerCase().includes(filters.search.toLowerCase())) {
+        return false;
+      }
+
       let passesStatusFilter = true;
       if (filters.status !== 'all') {
         const today = new Date();
