@@ -10,6 +10,32 @@
         {{ showFilters ? 'Masquer les filtres' : 'Filtrer les activités' }}
       </button>
 
+      <div class="relative w-full mt-4 mb-4">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+        </div>
+        <input
+            type="text"
+            :value="filters.search"
+            @input="updateSearch($event.target.value)"
+            placeholder="Rechercher une activité..."
+            class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            aria-label="Rechercher une activité"
+        />
+        <button
+            v-if="filters.search"
+            @click="clearSearch"
+            class="absolute inset-y-0 right-0 pr-3 flex items-center"
+            aria-label="Effacer la recherche"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        </div>
+
       <div v-if="showFilters" class="mt-3 bg-white p-4 border border-gray-200 rounded-lg space-y-4">
         <div v-if="showStatusFilter">
           <h4 class="font-medium text-gray-700 mb-2">Statut</h4>
@@ -213,7 +239,7 @@
     }
   });
 
-  const emit = defineEmits(['toggleMonthFilter', 'toggleSportTypeFilter', 'resetFilters']);
+  const emit = defineEmits(['toggleMonthFilter', 'toggleSportTypeFilter', 'resetFilters', 'updateSearch']);
 
   const showFilters = ref(false);
   const sportTypes = SPORT_TYPES;
@@ -228,5 +254,13 @@
 
   const resetFilters = () => {
     emit('resetFilters');
+  };
+
+  const updateSearch = (value) => {
+  emit('updateSearch', value);
+  };
+
+  const clearSearch = () => {
+  emit('updateSearch', '');
   };
   </script>

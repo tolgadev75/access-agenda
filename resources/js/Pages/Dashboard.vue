@@ -33,6 +33,7 @@
             @toggleMonthFilter="toggleMonthFilter"
             @toggleSportTypeFilter="toggleSportTypeFilter"
             @resetFilters="resetFilters"
+            @updateSearch="filters.search = $event"
           />
 
           <ActivityList
