@@ -158,7 +158,7 @@
             <div class="flex items-center mb-4 md:mb-0">
               <span class="font-medium text-gray-700">Access-agenda</span>
             </div>
-            <p class="text-gray-500 text-sm">
+            <p class="text-gray-700 text-sm">
               &copy; {{ new Date().getFullYear() }} Access-agenda - Tous droits réservés
             </p>
           </div>
