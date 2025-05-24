@@ -1,5 +1,8 @@
 <template>
-    <Head title="Tableau de bord - Access-agenda" />
+    <Head
+    title="Tableau de bord - Access-agenda"
+    description="Access-agenda rend le sport accessible à tous. Plateforme inclusive pour activités sportives adaptées à tous les handicaps."
+    />
     <AccessibleLayout>
       <template #header>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Tableau de bord</h2>

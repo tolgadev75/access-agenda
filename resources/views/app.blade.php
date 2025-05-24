@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Access-agenda : la plateforme dédiée aux activités sportives accessibles. Trouvez des sports adaptés à tous les handicaps : mobilité réduite, déficience visuelle, auditive et cognitive.">
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 

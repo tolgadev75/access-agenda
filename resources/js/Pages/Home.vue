@@ -1,5 +1,8 @@
 <template>
-    <Head title="Accueil - Access-agenda" />
+    <Head
+    title="Accueil - Access-agenda"
+    description="Découvrez des activités sportives accessibles près de chez vous. Sports adaptés aux personnes à mobilité réduite, malvoyantes, malentendantes et avec handicap cognitif."
+    />
     <AccessibleLayout>
       <div class="space-y-12">
         <section class="bg-gradient-to-r from-indigo-500 to-purple-600 -mx-6 p-8 rounded-lg text-white">
