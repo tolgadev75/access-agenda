@@ -43,6 +43,27 @@
             :activities="filteredActivities"
             emptyMessage="Vous n'avez pas encore créé d'activités. Utilisez le bouton 'Ajouter une activité' pour commencer."
           >
+            <template #badges="{ activity }">
+              <span
+                v-if="isActivityPast(activity)"
+                class="inline-block px-2 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-full mb-2"
+              >
+                Terminée
+              </span>
+              <span
+                v-else-if="isActivityToday(activity)"
+                class="inline-block px-2 py-1 text-xs font-medium bg-yellow-200 text-yellow-800 rounded-full mb-2"
+              >
+                Aujourd'hui
+              </span>
+              <span
+                v-else
+                class="inline-block px-2 py-1 text-xs font-medium bg-green-200 text-green-800 rounded-full mb-2"
+              >
+                À venir
+              </span>
+            </template>
+
             <template #actions="{ activity }">
               <button
                 @click="openActivityModal(activity)"
@@ -145,6 +166,22 @@
     resetFilters,
     filteredActivities
   } = useFilters(activitiesRef);
+
+  const isActivityPast = (activity) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const activityDate = new Date(activity.date);
+    activityDate.setHours(0, 0, 0, 0);
+    return activityDate < today;
+  };
+
+  const isActivityToday = (activity) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const activityDate = new Date(activity.date);
+    activityDate.setHours(0, 0, 0, 0);
+    return activityDate.getTime() === today.getTime();
+  };
 
   const openActivityModal = (activity = null) => {
     editingActivity.value = activity;

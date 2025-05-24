@@ -12,12 +12,21 @@ class ActivityController extends Controller
     // afficher la liste des activités sur la page d'accueil home
     public function index()
     {
-        $activities = Activity::orderBy('date', 'asc')
-                              ->where('date', '>=', now()->format('Y-m-d'))
-                              ->paginate(6);
+        $today = now()->format('Y-m-d');
+
+        // activités à venir
+        $upcoming = Activity::where('date', '>=', $today)
+            ->orderBy('date', 'asc')
+            ->paginate(6);
+
+        // activités passées 
+        $past = Activity::where('date', '<', $today)
+            ->orderBy('date', 'desc')
+            ->paginate(6, ['*'], 'past_page');
 
         return Inertia::render('Home', [
-            'activities' => $activities
+            'upcomingActivities' => $upcoming,
+            'pastActivities'     => $past,
         ]);
     }
 

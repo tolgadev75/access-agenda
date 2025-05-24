@@ -8,6 +8,10 @@
         <div v-for="activity in activities" :key="activity.id" class="p-6 bg-white border-b border-gray-200">
           <div class="flex flex-col sm:flex-row justify-between">
             <div>
+              <div class="mb-2">
+                <slot name="badges" :activity="activity"></slot>
+              </div>
+
               <h4 class="text-lg font-medium text-gray-900">{{ activity.name }}</h4>
 
               <ActivityDateTime :activity="activity" :show-time="false" compact />

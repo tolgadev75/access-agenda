@@ -120,12 +120,50 @@
             </template>
 
             <template #pagination>
-              <div class="mt-8" v-if="activities.last_page > 1">
+              <div class="mt-8" v-if="upcomingActivities.last_page > 1">
                 <Pagination
-                  :current-page="activities.current_page"
-                  :last-page="activities.last_page"
-                  :prev-page-url="activities.prev_page_url"
-                  :next-page-url="activities.next_page_url"
+                  :current-page="upcomingActivities.current_page"
+                  :last-page="upcomingActivities.last_page"
+                  :prev-page-url="upcomingActivities.prev_page_url"
+                  :next-page-url="upcomingActivities.next_page_url"
+                />
+              </div>
+            </template>
+          </ActivityList>
+        </section>
+
+        <section id="past-activities" aria-labelledby="past-activities-heading" class="pt-12">
+          <h3 id="past-activities-heading" class="text-2xl font-semibold text-gray-800 flex items-center mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5" />
+            </svg>
+            Activités passées
+          </h3>
+
+          <ActivityList
+            :activities="pastActivitiesRef"
+            emptyMessage="Aucune activité passée ne correspond à vos critères."
+          >
+            <template #actions="{ activity }">
+              <Link
+                :href="route('activities.show', activity.id)"
+                class="inline-flex items-center px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-medium hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                aria-label="Voir les détails de l'activité"
+              >
+                Voir les détails
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </Link>
+            </template>
+
+            <template #pagination>
+              <div class="mt-8" v-if="pastActivities.last_page > 1">
+                <Pagination
+                  :current-page="pastActivities.current_page"
+                  :last-page="pastActivities.last_page"
+                  :prev-page-url="pastActivities.prev_page_url"
+                  :next-page-url="pastActivities.next_page_url"
                 />
               </div>
             </template>
@@ -166,18 +204,19 @@
   import { useFilters } from '@/composables/useFilters';
 
   const props = defineProps({
-    activities: Object
+    upcomingActivities: Object,
+    pastActivities:     Object
   });
 
   const { truncate } = useActivity();
 
-  const activitiesRef = computed(() => props.activities.data);
-  const {
+  const upcomingActivitiesRef = computed(() => props.upcomingActivities.data);
+  const pastActivitiesRef     = computed(() => props.pastActivities.data);    const {
     filters,
     months,
     toggleMonthFilter,
     toggleSportTypeFilter,
     resetFilters,
     filteredActivities
-  } = useFilters(activitiesRef);
+  } = useFilters(upcomingActivitiesRef);
   </script>
