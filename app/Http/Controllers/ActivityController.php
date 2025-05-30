@@ -10,19 +10,22 @@ use Inertia\Inertia;
 class ActivityController extends Controller
 {
     // afficher la liste des activités sur la page d'accueil home
-    public function index()
+    public function index(Request $request)
     {
         $today = now()->format('Y-m-d');
+
+        $upcomingPage = $request->get('page', 1);
+        $pastPage = $request->get('past_page', 1);
 
         // activités à venir
         $upcoming = Activity::where('date', '>=', $today)
             ->orderBy('date', 'asc')
-            ->paginate(6);
+            ->paginate(6, ['*'], 'page', $upcomingPage);
 
         // activités passées 
         $past = Activity::where('date', '<', $today)
             ->orderBy('date', 'desc')
-            ->paginate(6, ['*'], 'past_page');
+            ->paginate(6, ['*'], 'past_page', $pastPage);
 
         return Inertia::render('Home', [
             'upcomingActivities' => $upcoming,
