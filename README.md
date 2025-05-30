@@ -10,6 +10,10 @@
 
 Access-Agenda est une plateforme permettant de découvrir et de partager des activités sportives accessibles aux personnes en situation de handicap.
 
+## 🌐 Site web
+
+**Accéder à l'application :** [https://access-agenda.duckdns.org/](https://access-agenda.duckdns.org/)
+
 ## Fonctionnalités
 
 - Accessibilité : Conçue selon les normes d'accessibilité web, utilisable au clavier et compatible avec les technologies d'assistance
