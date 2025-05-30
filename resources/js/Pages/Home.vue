@@ -102,7 +102,13 @@
             </h3>
           </div>
 
+          <div v-if="upcomingPagination.loading.value" class="flex justify-center items-center py-12">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+            <span class="ml-2 text-gray-600">Chargement...</span>
+          </div>
+
           <ActivityList
+            v-else
             :activities="filteredActivities"
             emptyMessage="Aucune activité ne correspond à vos critères de filtrage. Essayez de modifier vos filtres ou revenez plus tard !"
           >
@@ -120,12 +126,12 @@
             </template>
 
             <template #pagination>
-              <div class="mt-8" v-if="upcomingActivities.last_page > 1">
-                <Pagination
-                  :current-page="upcomingActivities.current_page"
-                  :last-page="upcomingActivities.last_page"
-                  :prev-page-url="upcomingActivities.prev_page_url"
-                  :next-page-url="upcomingActivities.next_page_url"
+              <div class="mt-8" v-if="upcomingPagination.paginatedData.value && upcomingPagination.paginatedData.value.last_page > 1">
+                <AjaxPagination
+                  :current-page="upcomingPagination.paginatedData.value.current_page"
+                  :last-page="upcomingPagination.paginatedData.value.last_page"
+                  :loading="upcomingPagination.loading.value"
+                  @page-change="upcomingPagination.changePage"
                 />
               </div>
             </template>
@@ -140,7 +146,14 @@
             Activités passées
           </h3>
 
+          <!-- Indicateur de chargement -->
+          <div v-if="pastPagination.loading.value" class="flex justify-center items-center py-12">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+            <span class="ml-2 text-gray-600">Chargement...</span>
+          </div>
+
           <ActivityList
+            v-else
             :activities="pastActivitiesRef"
             emptyMessage="Aucune activité passée ne correspond à vos critères."
           >
@@ -158,12 +171,12 @@
             </template>
 
             <template #pagination>
-              <div class="mt-8" v-if="pastActivities.last_page > 1">
-                <Pagination
-                  :current-page="pastActivities.current_page"
-                  :last-page="pastActivities.last_page"
-                  :prev-page-url="pastActivities.prev_page_url"
-                  :next-page-url="pastActivities.next_page_url"
+              <div class="mt-8" v-if="pastPagination.paginatedData.value && pastPagination.paginatedData.value.last_page > 1">
+                <AjaxPagination
+                  :current-page="pastPagination.paginatedData.value.current_page"
+                  :last-page="pastPagination.paginatedData.value.last_page"
+                  :loading="pastPagination.loading.value"
+                  @page-change="pastPagination.changePage"
                 />
               </div>
             </template>
@@ -196,22 +209,44 @@
   import AccessibleLayout from '@/Layouts/AccessibleLayout.vue';
   import { Head, Link } from '@inertiajs/vue3';
   import { useActivity } from '@/composables/useActivity';
-  import ActivityDateTime from '@/Components/ActivityDateTime.vue';
-  import Pagination from '@/Components/Pagination.vue';
   import ActivityFilters from '@/Components/Activities/ActivityFilters.vue';
   import ActivityList from '@/Components/Activities/ActivityList.vue';
-  import { computed } from 'vue';
+  import AjaxPagination from '@/Components/AjaxPagination.vue';
+  import { computed, onMounted } from 'vue';
   import { useFilters } from '@/composables/useFilters';
+  import { useAjaxPagination } from '@/composables/useAjaxPagination';
 
   const props = defineProps({
     upcomingActivities: Object,
-    pastActivities:     Object
+    pastActivities: Object
   });
 
   const { truncate } = useActivity();
 
-  const upcomingActivitiesRef = computed(() => props.upcomingActivities.data);
-  const pastActivitiesRef     = computed(() => props.pastActivities.data);    const {
+  const upcomingPagination = useAjaxPagination({
+    dataKey: 'upcomingActivities',
+    pageParam: 'page'
+  });
+
+  const pastPagination = useAjaxPagination({
+    dataKey: 'pastActivities',
+    pageParam: 'past_page'
+  });
+
+  onMounted(() => {
+    upcomingPagination.initialize(props.upcomingActivities);
+    pastPagination.initialize(props.pastActivities);
+  });
+
+  const upcomingActivitiesRef = computed(() => {
+    return upcomingPagination.paginatedData.value?.data || [];
+  });
+
+  const pastActivitiesRef = computed(() => {
+    return pastPagination.paginatedData.value?.data || [];
+  });
+
+  const {
     filters,
     months,
     toggleMonthFilter,
